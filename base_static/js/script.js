@@ -8,7 +8,6 @@ document.querySelector('#input-add').addEventListener('click', function(event){
     window.style.display = window.style.display === 'flex' ? 'none' : 'flex'
 })
 
-
 window.addEventListener('click', function(evt){
     var add = document.querySelector('#input-add')
     var window_options = document.querySelector('#container-options-id')
@@ -40,7 +39,14 @@ function format_currency(input){
 /* Padroniza o valor do input de valor*/
 document.getElementById("value-input").value = "R$ 0,00"
 
+// Obtem as Cateogrias em Json e adiciona uma açao no campo de Categorias
 function display_category_options(){
+
+    // const icon_arrow = document.querySelector(".bi-caret-down")
+    // icon_arrow.classList.remove('bi-caret-down')
+    // icon_arrow.classList.add('bi-caret-up')
+
+
     fetch('/category/').then(response => response.json()).then(data => {
 
         const select_items = document.querySelector('.select-items')
@@ -70,3 +76,56 @@ function display_category_options(){
 
 const icon_arrow = document.querySelector(".bi-caret-down").addEventListener('click', display_category_options)
 
+
+// Exibe o modal de acordo com a opcão escolhida
+function add_expenses_or_revenues(evt){
+    const modal = document.querySelector('.container-modal')
+    modal.style.display = 'flex'
+    const evt_action = evt.target  
+    const title_modal = document.querySelector('#title-modal-id')
+
+    document.body.classList.add('modal-open')
+    document.querySelector('.wrapping').style.display = 'block'
+
+    if (evt_action.classList.contains('option-expenses')){
+        title_modal.textContent = 'Despesas'
+        title_modal.style.color = '#ff6347'
+        document.getElementById("value-input").style.color = '#ff6347'
+
+    }
+    else if (evt_action.classList.contains('option-revenues')){
+        title_modal.textContent = 'Receitas'
+        title_modal.style.color = '#008000'
+        document.getElementById("value-input").style.color = '#008000'
+    }   
+}
+
+const add_expenses = document.querySelector('#option-expenses-id').addEventListener('click', add_expenses_or_revenues)
+const add_revenues = document.querySelector('#option-revenues-id').addEventListener('click', add_expenses_or_revenues)
+
+// Adiciona um event de click no icone 'x' para fechar o modal
+document.querySelector('.bi-x-lg').addEventListener('click', function(){
+    document.querySelector('.wrapping').style.display = 'none'
+    document.body.classList.remove('modal-open')
+    const modal = document.querySelector('.container-modal')
+    modal.style.display = 'none'
+
+})
+
+// O botão do modal muda de estilo ao digitar no input de valor
+const value_input = document.getElementById("value-input").addEventListener('input', function(){
+    const title_modal = document.querySelector('#title-modal-id')
+    const color_title = window.getComputedStyle(title_modal)
+    const btn_modal = document.querySelector('.btn-modal')
+    if (this.value){
+        const color = color_title.color
+        btn_modal.style.background = color
+        btn_modal.style.pointerEvents = 'auto'
+    }
+
+    if (this.value == 'R$ 0.00'){
+        btn_modal.style.background = '#aa9b9b'
+        btn_modal.style.pointerEvents = 'none'  
+    }
+    
+})  

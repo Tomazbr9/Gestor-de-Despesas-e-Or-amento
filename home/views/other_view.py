@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.http import JsonResponse
 from home.models import Category
 
@@ -6,3 +7,5 @@ def category(request):
     category = Category.objects.all().values('id', 'name', 'icone')
     # retorna uma resposta JSON
     return JsonResponse(list(category), safe=False)
+
+

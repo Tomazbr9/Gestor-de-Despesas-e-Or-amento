@@ -21,6 +21,18 @@ html {
 }
 
 
+.wrapping {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+
 body {
     display: flex;
     background: var(--second-color) !important;
@@ -125,6 +137,22 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #f4f3f3
 }
 
+.option-expenses {
+    pointer-events: auto;
+} 
+
+.option-expenses * {
+    pointer-events: none;
+} 
+
+.option-revenues {
+    pointer-events: auto;
+}
+
+.option-revenues * {
+    pointer-events: none;
+}
+
 .option-expenses i {
     color: var(--errors-color);
 }
@@ -142,17 +170,19 @@ h1, h2, h3, h4, h5, h6 {
 /* Modal */
 
 .container-modal {
-    display: flex;
+    display: none;
     flex-direction: column;
     background-color: var(--fourth-color);
     border-radius: 2rem;
     padding: 3rem;
     width: 50rem;
-    height: 45rem;
+    height: 43rem;
     gap: var(--gap);
     box-shadow: 1rem 2rem 3rem 1rem rgb(0, 0, 0, 0.1);
-    position: relative;
+    position: absolute;
+    right: 48rem;
     top: 9rem;
+    z-index: 999;
 }
 
 .title-close-modal {
@@ -189,7 +219,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-color);
 }
 
-.bi-caret-down {
+.bi-caret-down, .bi-caret-up {
     display: block;
     color: var(--text-color);
     cursor: pointer;
@@ -233,6 +263,7 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     top: 33rem;
     overflow: auto;
+    z-index: 1;
 }
 
 .category-options {
@@ -244,3 +275,35 @@ h1, h2, h3, h4, h5, h6 {
 .category-options:hover {
     background-color: var(--hover-options);
 }
+
+body.modal-open {
+    pointer-events: none;
+}
+
+.container-modal, .container-modal * {
+    pointer-events: auto;
+}
+
+.bi-x-lg {
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.bi-x-lg:hover {
+    color: var(--errors-color);
+}
+
+.btn-modal {
+    position: relative;
+    left: 32rem;
+    text-align: center;
+    padding: 1rem 2rem;
+    color: var(--fourth-color);
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1.6rem;
+    width: 10rem;
+    background-color: #aa9b9b;
+    pointer-events: none;
+}
+
