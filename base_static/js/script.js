@@ -12,7 +12,7 @@ window.addEventListener('click', function(evt){
     var add = document.querySelector('#input-add')
     var window_options = document.querySelector('#container-options-id')
     var category_options = document.querySelector('.select-items')
-    var display_category_options = document.querySelector('.bi-caret-down')
+    var display_category_options_up = document.querySelector('.bi-caret-up')
     var input_revenues_expenses = document.querySelector('#input-revenues-expenses-id')
 
     if (window_options.style.display === 'flex' 
@@ -21,10 +21,12 @@ window.addEventListener('click', function(evt){
             window_options.style.display = 'none'
         }
     if (category_options.style.display === 'flex' 
-        && !display_category_options.contains(evt.target)
-        && !display_category_options.contains(evt.target)
+        && !display_category_options_up.contains(evt.target)
         && !input_revenues_expenses.contains(evt.target)){
             category_options.style.display = 'none'
+            const icon_arrow = document.querySelector(".bi-caret-up")
+            icon_arrow.classList.remove('bi-caret-up')
+            icon_arrow.classList.add('bi-caret-down')
         }
 })
 
@@ -42,10 +44,9 @@ document.getElementById("value-input").value = "R$ 0,00"
 // Obtem as Cateogrias em Json e adiciona uma açao no campo de Categorias
 function display_category_options(){
 
-    // const icon_arrow = document.querySelector(".bi-caret-down")
-    // icon_arrow.classList.remove('bi-caret-down')
-    // icon_arrow.classList.add('bi-caret-up')
-
+    const icon_arrow = document.querySelector(".bi-caret-down")
+    icon_arrow.classList.remove('bi-caret-down')
+    icon_arrow.classList.add('bi-caret-up')
 
     fetch('/category/').then(response => response.json()).then(data => {
 
@@ -109,7 +110,8 @@ document.querySelector('.bi-x-lg').addEventListener('click', function(){
     document.body.classList.remove('modal-open')
     const modal = document.querySelector('.container-modal')
     modal.style.display = 'none'
-
+    document.querySelector('.form-revenues-expenses').reset()
+    document.getElementById("value-input").value = "R$ 0,00"
 })
 
 // O botão do modal muda de estilo ao digitar no input de valor
@@ -126,6 +128,5 @@ const value_input = document.getElementById("value-input").addEventListener('inp
     if (this.value == 'R$ 0.00'){
         btn_modal.style.background = '#aa9b9b'
         btn_modal.style.pointerEvents = 'none'  
-    }
-    
+    } 
 })  
