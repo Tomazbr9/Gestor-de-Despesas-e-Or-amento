@@ -112,6 +112,8 @@ document.querySelector('.bi-x-lg').addEventListener('click', function(){
     modal.style.display = 'none'
     document.querySelector('.form-revenues-expenses').reset()
     document.getElementById("value-input").value = "R$ 0,00"
+    document.querySelector('.btn-modal').style.pointerEvents = 'none'
+    document.querySelector('.btn-modal').style.background = '#aa9b9b'
 })
 
 // O botão do modal muda de estilo ao digitar no input de valor
