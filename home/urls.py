@@ -5,5 +5,6 @@ app_name = 'home'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('category/', views.other_view.category, name='category')
+    path('expense_category/', views.expense_category, name='expense_category'),
+    path('income_category/', views.income_category, name='income_category')
 ]

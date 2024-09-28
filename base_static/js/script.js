@@ -48,7 +48,10 @@ function display_category_options(){
     icon_arrow.classList.remove('bi-caret-down')
     icon_arrow.classList.add('bi-caret-up')
 
-    fetch('/category/').then(response => response.json()).then(data => {
+    const title_modal = document.querySelector('#title-modal-id').innerText
+    const address_json = title_modal === 'Despesas' ? '/expense_category/' : '/income_category/' 
+
+    fetch(address_json).then(response => response.json()).then(data => {
 
         const select_items = document.querySelector('.select-items')
         select_items.style.display = select_items.style.display === 'flex' ? 'none' : 'flex'

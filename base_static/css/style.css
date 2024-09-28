@@ -248,6 +248,14 @@ h1, h2, h3, h4, h5, h6 {
     background-color: blueviolet;
 }
 
+.bi-cash {
+    background-color: var(--success-color);
+}
+
+.bi-piggy-bank {
+    background-color: blue;
+}
+
 .select-items {
     display: none;
     flex-direction: column;

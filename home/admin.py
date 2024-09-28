@@ -1,14 +1,10 @@
 from django.contrib import admin
-from .models import Revenues, Expenses, Category
-
-@admin.register(Revenues)
-class RevenuesAdmin(admin.ModelAdmin):
-    list_display = ('value', 'description', 'date')
-
-@admin.register(Expenses)
-class ExpensesAdmin(admin.ModelAdmin):
-    list_display = ('value', 'description', 'date')
+from .models import Category, Transaction
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'icone')
+
+@admin.register(Transaction)
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('amount', 'description', 'date', 'category')
