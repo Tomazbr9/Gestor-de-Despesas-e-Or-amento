@@ -4,8 +4,11 @@
         <i class="bi bi-x-lg"></i>
     </div>
     <form
+        method="post"
+        action={% url "home:add_transaction" %}
         class="form-revenues-expenses"
     >   
+        {% csrf_token %}
         <div class="input-container">
             <input id="value-input" class="input-revenues-expenses" type="text" name="value" oninput="format_currency(this)">
             <i class="bi bi-calculator"></i>
@@ -19,12 +22,12 @@
             <i class="bi bi-calendar-event"></i>
         </div>
         <div class="input-container">
-            <input id="input-revenues-expenses-id" class="input-revenues-expenses" placeholder="Categoria" disabled>
+            <input id="input-revenues-expenses-id" class="input-revenues-expenses" placeholder="Categoria" name="category" disabled>
             <i class="bi bi-bookmark"></i>
             <i class="bi bi-caret-down"></i>
             <input id="get-id-category" type="hidden" name="id">
         </div>
-            <div class="select-items"></div>
+        <div class="select-items"></div>
         <button class="btn-modal" type="submit">Salvar</button>
     </form>
 </div>
