@@ -9,6 +9,6 @@ urlpatterns = [
     path('income_category/', views.income_category, name='income_category'),
 
     # Urls de despesas e receitas
-    path('add_expense/', views.add_transaction, name='add_transaction'), # type: ignore
+    path('add_transaction/', views.add_transaction, name='add_transaction')
 
 ]

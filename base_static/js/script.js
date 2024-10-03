@@ -107,9 +107,10 @@ function add_expenses_or_revenues(evt){
 const add_expenses = document.querySelector('#option-expenses-id').addEventListener('click', add_expenses_or_revenues)
 const add_revenues = document.querySelector('#option-revenues-id').addEventListener('click', add_expenses_or_revenues)
 
-// Adiciona um event de click no icone 'x' para fechar o modal
-document.querySelector('.bi-x-lg').addEventListener('click', function(){
+// Da Close no modal
+function close_modal(){
     document.querySelector('.wrapping').style.display = 'none'
+    document.querySelector('#msg_error').innerText = ""
     document.body.classList.remove('modal-open')
     const modal = document.querySelector('.container-modal')
     modal.style.display = 'none'
@@ -117,7 +118,9 @@ document.querySelector('.bi-x-lg').addEventListener('click', function(){
     document.getElementById("value-input").value = "R$ 0,00"
     document.querySelector('.btn-modal').style.pointerEvents = 'none'
     document.querySelector('.btn-modal').style.background = '#aa9b9b'
-})
+}
+
+document.querySelector('.bi-x-lg').addEventListener('click', close_modal)
 
 // O botão do modal muda de estilo ao digitar no input de valor
 const value_input = document.getElementById("value-input").addEventListener('input', function(){
@@ -135,3 +138,29 @@ const value_input = document.getElementById("value-input").addEventListener('inp
         btn_modal.style.pointerEvents = 'none'  
     } 
 })  
+
+$(document).ready(function() {
+    $('.form-revenues-expenses').on('submit', function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        var form = $(this)[0]
+        var formdata = new FormData(form)
+
+        if (formdata.get('id') !== '') {
+            // Se a condição for atendida, envia o formulário via AJAX
+            $.ajax({
+                type: 'POST',
+                url: addTransactionUrl, 
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    close_modal(),
+                    $('#get-id-category').val('') 
+                }      
+            })
+        } else {
+            document.querySelector('#msg_error').innerText = "Por Favor, Selecione uma Categoria"
+        }
+    })
+})

@@ -7,10 +7,8 @@ from ..models import Category, Transaction
 def add_transaction(request):
     if request.method == "POST":
         category_id = request.POST.get('id')
-
         value = request.POST.get('value')
         amount = float(value.replace('R$', '').replace(' ', ''))
-
         description = request.POST.get('description')
         date = request.POST.get('date')
 
@@ -37,5 +35,6 @@ def add_transaction(request):
         JsonResponse({'status': 'method invalid'})
     
     return redirect('home:index')
+    
     
 

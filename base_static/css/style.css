@@ -301,8 +301,6 @@ body.modal-open {
 }
 
 .btn-modal {
-    position: relative;
-    left: 32rem;
     text-align: center;
     padding: 1rem 2rem;
     color: var(--fourth-color);
@@ -312,6 +310,22 @@ body.modal-open {
     width: 10rem;
     background-color: #aa9b9b;
     pointer-events: none;
+}
+
+
+.container-btn-errors {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-btn-errors p {
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--errors-color);
+}
+
+.msg {
+    display: none;
 }
 
 /* Informaçoes de saldo, receitas e despesas. */
