@@ -139,6 +139,7 @@ const value_input = document.getElementById("value-input").addEventListener('inp
     } 
 })  
 
+// Apresentar Mensagem de erro antes de enviar formulario
 $(document).ready(function() {
     $('.form-revenues-expenses').on('submit', function(event) {
         event.preventDefault(); // Impede o envio padrão do formulário
@@ -163,4 +164,25 @@ $(document).ready(function() {
             document.querySelector('#msg_error').innerText = "Por Favor, Selecione uma Categoria"
         }
     })
+})
+
+/* Faz a Soma das Despesas e Receitas para obter o valor do saldo total */
+function total_balance(url, element_id){
+    fetch(url).then(response => response.json()).then(data => {
+        total = 0
+        for (i of data){
+            if (i['total_amount'] == null){
+                continue
+            }
+            total += parseFloat(i['total_amount'])
+        }
+        console.log(total.toFixed(2))
+        document.querySelector(element_id).innerText = `R$ ${total.toFixed(2)}`.replace('.', ',').replace('-', '')
+    })
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+    total_balance('/total_balance/', '#balance-total')
+    total_balance('/total_income/', '#income-total')
+    total_balance('/total_expense/', '#expense-total')
 })
