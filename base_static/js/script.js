@@ -177,7 +177,7 @@ function total_balance(url, element_id){
             total += parseFloat(i['total_amount'])
         }
         console.log(total.toFixed(2))
-        document.querySelector(element_id).innerText = `R$ ${total.toFixed(2)}`.replace('.', ',').replace('-', '')
+        document.querySelector(element_id).innerText = `R$ ${total.toFixed(2)}`.replace('.', ',')
     })
 }
 
