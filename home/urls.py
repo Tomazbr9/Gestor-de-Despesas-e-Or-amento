@@ -14,5 +14,9 @@ urlpatterns = [
     path('add_transaction/', views.add_transaction, name='add_transaction'),
     path('total_balance/', views.total_balance, name='total_balance'),
     path('total_income/', views.total_income, name='total_income'),
-    path('total_expense/', views.total_expense, name='total_expense')
+    path('total_expense/', views.total_expense, name='total_expense'),
+
+
+    path('transactions/', views.transactions, name='transactions')
+
 ]

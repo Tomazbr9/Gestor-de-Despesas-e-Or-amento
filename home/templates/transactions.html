@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block main_content %}
+    <div class="container-transactions">
+        <div class="table-option">
+            <div class="month-table">
+                <a href="{% url "home:transactions" %}?month={{month}}&year={{year}}&direction=previous"><i class="bi bi-caret-left"></i></a>
+                <div class="info-month-year">
+                    <p class="month">{{name_month}}</p>
+                    <p class="year">{{year}}</p>
+                </div>
+                <a href="{% url "home:transactions" %}?month={{month}}&year={{year}}&direction=next"><i class="bi bi-caret-right"></i></a>
+            </div>
+            <div class="table-with-info">
+                <table class="table-transactions">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10/01/2003</td>
+                            <td>blablabla</td>
+                            <td>Casa</td>
+                            <td>10.50</td>
+                            <td>editar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="info-transactions">
+            {% include "partials/transaction_information.html" %}
+        </div>
+    </div>
+{% endblock main_content %}

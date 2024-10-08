@@ -1,9 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from ..models import Category, Transaction
+from datetime import datetime
 
 
-# Parei aqui
 def add_transaction(request):
     if request.method == "POST":
         category_id = request.POST.get('id')
@@ -19,7 +19,7 @@ def add_transaction(request):
                 amount = -amount
 
             if not date:
-                date = None
+                date = datetime.now()
 
             transaction = Transaction.objects.create(
                 amount = amount,

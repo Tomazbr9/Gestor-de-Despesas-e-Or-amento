@@ -15,6 +15,7 @@ def graphic_pizza_expense_income():
     total_income = for_views.total_values(Category, 'income')
      
     expense_income = ['Despesas', 'Receitas']
+    print(total_expense)
     values = [total_expense, total_income]
     colors = ['red', 'green']
     plt.pie(values, labels=expense_income, colors=colors, autopct='%1.1f%%', startangle=140)
