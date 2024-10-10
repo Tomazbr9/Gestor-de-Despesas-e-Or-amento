@@ -459,6 +459,9 @@ body.modal-open {
     align-items: center;
     background-color: var(--fourth-color);
     width: 90rem;
+    height: 50rem;
+    box-shadow: 0 0.2rem 0.5rem var(--text-color);
+    border-radius: 1rem;
 }
 
 .month-table {
@@ -521,4 +524,20 @@ body.modal-open {
     padding-left: 1.5rem;
     font-size: 1.5rem;
     color: var(--text-color);
+    border-bottom: 0.1rem solid #d6d5d5;
+}
+
+.adjust-pen-trash {
+    display: flex;
+    gap: var(--gap);
+}
+
+.adjust-pen-trash * {
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.adjust-pen-trash *:hover {
+    color: var(--primary-color);
 }

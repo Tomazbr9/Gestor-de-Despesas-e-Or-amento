@@ -80,6 +80,33 @@ function display_category_options(){
 
 const icon_arrow = document.querySelector(".bi-caret-down").addEventListener('click', display_category_options)
 
+function ajaxt(){
+    $(document).ready(function() {
+        $('.form-revenues-expenses').on('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            let form = $(this)[0]
+            let formdata = new FormData(form)
+
+            if (formdata.get('id') !== '') {
+                // Se a condição for atendida, envia o formulário via AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: addTransactionUrl, 
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function(response){
+                        close_modal(),
+                        $('#get-id-category').val('') 
+                    }      
+                })
+            } else {
+                document.querySelector('#msg_error').innerText = "Por Favor, Selecione uma Categoria"
+            }
+        })
+    })
+}
 
 // Exibe o modal de acordo com a opcão escolhida
 function add_expenses_or_revenues(evt){
@@ -101,7 +128,9 @@ function add_expenses_or_revenues(evt){
         title_modal.textContent = 'Receitas'
         title_modal.style.color = '#008000'
         document.getElementById("value-input").style.color = '#008000'
-    }   
+    }
+
+    ajaxt()
 }
 
 const add_expenses = document.querySelector('#option-expenses-id').addEventListener('click', add_expenses_or_revenues)
@@ -139,33 +168,6 @@ const value_input = document.getElementById("value-input").addEventListener('inp
     } 
 })  
 
-// Apresentar Mensagem de erro antes de enviar formulario
-$(document).ready(function() {
-    $('.form-revenues-expenses').on('submit', function(event) {
-        event.preventDefault(); // Impede o envio padrão do formulário
-
-        var form = $(this)[0]
-        var formdata = new FormData(form)
-
-        if (formdata.get('id') !== '') {
-            // Se a condição for atendida, envia o formulário via AJAX
-            $.ajax({
-                type: 'POST',
-                url: addTransactionUrl, 
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function(response){
-                    close_modal(),
-                    $('#get-id-category').val('') 
-                }      
-            })
-        } else {
-            document.querySelector('#msg_error').innerText = "Por Favor, Selecione uma Categoria"
-        }
-    })
-})
-
 /* Faz a Soma das Despesas e Receitas para obter o valor do saldo total */
 function total_balance(url, element_id){
     fetch(url).then(response => response.json()).then(data => {
@@ -176,8 +178,7 @@ function total_balance(url, element_id){
             }
             total += parseFloat(i['total_amount'])
         }
-        console.log(total.toFixed(2))
-        document.querySelector(element_id).innerText = `R$ ${total.toFixed(2)}`.replace('.', ',')
+        document.querySelector(element_id).innerText = `R$ ${total.toFixed(2)}`.replace('.', ',').replace('-', '')
     })
 }
 
@@ -185,4 +186,58 @@ document.addEventListener('DOMContentLoaded', function(){
     total_balance('/total_balance/', '#balance-total')
     total_balance('/total_income/', '#income-total')
     total_balance('/total_expense/', '#expense-total')
+})
+
+// Aplica cor e retira o simbolo '-' dos valores de transações
+const amount = [...document.getElementsByClassName('amount-person')]
+amount.forEach(el => {
+    let value = parseFloat(el.textContent)
+    console.log(value)
+    if (value < 0){
+        el.style.color = '#ff6347'
+    } else {
+        el.style.color = '#008000'
+    }
+    
+    el.textContent = el.textContent.replace('-', '')
+})
+
+$(document).ready(function(){
+    $('.update').on('click', function(event){
+        event.preventDefault()
+
+        let data_type = $(this).data('type')
+
+        const modal = document.querySelector('.container-modal')
+        modal.style.display = 'flex' 
+        const title_modal = document.querySelector('#title-modal-id')
+
+        document.body.classList.add('modal-open')
+        document.querySelector('.wrapping').style.display = 'block'
+        console.log(data_type)  
+        if (data_type === 'expense'){
+            title_modal.textContent = 'Despesas'
+            title_modal.style.color = '#ff6347'
+            document.getElementById("value-input").style.color = '#ff6347'
+        } else if (data_type === 'income'){
+            title_modal.textContent = 'Receitas'
+            title_modal.style.color = '#008000'
+            document.getElementById("value-input").style.color = '#008000'
+        }
+
+        let amount = 'R$ ' + $(this).data('amount').replace('-', '')
+        let description = $(this).data('description')
+        let date = $(this).data('date')
+        let category_name = $(this).data('category-name')
+        let category_id = $(this).data('category-id')
+        let transaction_id = $(this).data('transaction-id')
+
+        $('.form-revenues-expenses').find('input[name="value"]').val(amount)
+        $('.form-revenues-expenses').find('input[name="description"]').val(description)
+        $('.form-revenues-expenses').find('input[name="date"]').val(date)
+        $('.form-revenues-expenses').find('input[name="category"]').val(category_name)
+        $('.form-revenues-expenses').find('input[name="id"]').val(category_id)
+
+        document.querySelector('.form-revenues-expenses').action = '/update_transaction/' + transaction_id + '/'  
+    })
 })

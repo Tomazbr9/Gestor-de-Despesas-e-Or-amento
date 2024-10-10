@@ -5,6 +5,7 @@ from datetime import datetime
 
 
 def add_transaction(request):
+
     if request.method == "POST":
         category_id = request.POST.get('id')
         value = request.POST.get('value')
@@ -17,7 +18,6 @@ def add_transaction(request):
 
             if category.category_type == 'expense':
                 amount = -amount
-
             if not date:
                 date = datetime.now()
 
@@ -34,7 +34,7 @@ def add_transaction(request):
     else:
         JsonResponse({'status': 'method invalid'})
     
-    return redirect('home:index')
+    return render(request, 'index.html')
     
     
 

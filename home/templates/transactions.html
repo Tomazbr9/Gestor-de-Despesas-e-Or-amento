@@ -22,13 +22,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>10/01/2003</td>
-                            <td>blablabla</td>
-                            <td>Casa</td>
-                            <td>10.50</td>
-                            <td>editar</td>
-                        </tr>
+                        {% for transaction in transactions %}
+                            <tr>
+                                <td>{{transaction.date}}</td>
+                                <td>{{transaction.description}}</td>
+                                <td>{{transaction.category.name}}</td>
+                                <td class="amount-person">{{transaction.amount}}</td>
+                                <td>
+                                    <div class="adjust-pen-trash">
+                                        <a href="{% url "home:delete_transaction" transaction.id %}"><i class="fa-solid fa-trash"></i></a>
+                                        <a data-type="{{transaction.category.category_type}}" data-amount="{{transaction.amount}}" data-description="{{transaction.description}}" data-date="{{transaction.date}}" data-category-name="{{transaction.category.name}}" data-category-id="{{transaction.category.id}}" data-transaction-id="{{transaction.id}}" class="update" href="{% url "home:update_transaction" transaction.id%}"><i class="fa-solid fa-pen"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
