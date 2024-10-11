@@ -98,8 +98,9 @@ function ajaxt(){
                     contentType: false,
                     success: function(response){
                         close_modal(),
-                        $('#get-id-category').val('') 
-                    }      
+                        $('#get-id-category').val('')
+                        location.reload()     
+                    }
                 })
             } else {
                 document.querySelector('#msg_error').innerText = "Por Favor, Selecione uma Categoria"
@@ -192,7 +193,6 @@ document.addEventListener('DOMContentLoaded', function(){
 const amount = [...document.getElementsByClassName('amount-person')]
 amount.forEach(el => {
     let value = parseFloat(el.textContent)
-    console.log(value)
     if (value < 0){
         el.style.color = '#ff6347'
     } else {
@@ -214,7 +214,7 @@ $(document).ready(function(){
 
         document.body.classList.add('modal-open')
         document.querySelector('.wrapping').style.display = 'block'
-        console.log(data_type)  
+    
         if (data_type === 'expense'){
             title_modal.textContent = 'Despesas'
             title_modal.style.color = '#ff6347'

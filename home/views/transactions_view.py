@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
 from datetime import datetime
 from ..models import Transaction, Category
-
 
 def transactions(request):
 
@@ -37,9 +37,14 @@ def transactions(request):
     transactions = Transaction.objects.filter(
         date__month=month, date__year=year
     )
+
+    paginator = Paginator(transactions, 10)
+    page_number = request.GET.get('page')
+
+    page_transactions = paginator.get_page(page_number)
     
     context = {
-        'transactions': transactions,
+        'page_obj': page_transactions,
         'view': 'transactions',
         'month': month,
         'year': year,

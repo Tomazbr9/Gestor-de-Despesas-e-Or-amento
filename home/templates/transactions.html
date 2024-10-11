@@ -11,6 +11,7 @@
                 <a href="{% url "home:transactions" %}?month={{month}}&year={{year}}&direction=next"><i class="bi bi-caret-right"></i></a>
             </div>
             <div class="table-with-info">
+            {% if page_obj %}
                 <table class="table-transactions">
                     <thead>
                         <tr>
@@ -22,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for transaction in transactions %}
+                        {% for transaction in page_obj %}
                             <tr>
                                 <td>{{transaction.date}}</td>
                                 <td>{{transaction.description}}</td>
@@ -38,6 +39,26 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            {% else %}
+                <h5>Nenhuma Transação encontrada</h5>
+            {% endif %}
+            </div>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">Primeira</a>
+                        <a href="?page={{ page_obj.previous_page_number }}"><i class="fa-solid arrow-left fa-arrow-right"></i></a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+                    {% endif %}
+                </span>
             </div>
         </div>
         <div class="info-transactions">

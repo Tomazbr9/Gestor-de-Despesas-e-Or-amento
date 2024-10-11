@@ -459,7 +459,7 @@ body.modal-open {
     align-items: center;
     background-color: var(--fourth-color);
     width: 90rem;
-    height: 50rem;
+    height: 65rem;
     box-shadow: 0 0.2rem 0.5rem var(--text-color);
     border-radius: 1rem;
 }
@@ -540,4 +540,21 @@ body.modal-open {
 
 .adjust-pen-trash *:hover {
     color: var(--primary-color);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 100%;
+    margin-bottom: 2rem;
+    
+}
+
+.arrow-left {
+    transform: scale(-1);
+}
+
+.fa-arrow-right {
+    color: var(--text-color);
 }
