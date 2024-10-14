@@ -1,15 +1,7 @@
 {% extends "base.html" %}
+{% load static %}
 {% block main_content %}
-    <div class="container-transactions">
-        <div class="table-option">
-            <div class="month-table">
-                <a href="{% url "home:transactions" %}?month={{month}}&year={{year}}&direction=previous"><i class="bi bi-caret-left"></i></a>
-                <div class="info-month-year">
-                    <p class="month">{{name_month}}</p>
-                    <p class="year">{{year}}</p>
-                </div>
-                <a href="{% url "home:transactions" %}?month={{month}}&year={{year}}&direction=next"><i class="bi bi-caret-right"></i></a>
-            </div>
+    {% include "partials/_change_date.html" %}
             <div class="table-with-info">
             {% if page_obj %}
                 <table class="table-transactions">
@@ -40,10 +32,13 @@
                     </tbody>
                 </table>
             {% else %}
-                <h5>Nenhuma Transação encontrada</h5>
+                <div class="no-value">
+                    <img src="{% static "imgs/procurando.png" %}" alt="Ursinho Rosa procurando algo com binóculos">
+                    <h5>Nenhuma Transação Encontrada</h5>
+                </div>
             {% endif %}
             </div>
-            <div class="pagination">
+            <div class="pagination {% if not page_obj %}hide-page{% endif %}">
                 <span class="step-links">
                     {% if page_obj.has_previous %}
                         <a href="?page=1">Primeira</a>

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db.models import Sum
-from home.models import Category
+from home.models import Category, Transaction
 
 def income_category(request):
     # obtem todos as categorias do tipo receita
@@ -35,3 +35,5 @@ def total_expense(request):
         total_amount=Sum('transaction__amount')).values('name', 'total_amount')
     
     return JsonResponse(list(totals), safe=False)
+
+

@@ -16,9 +16,12 @@ urlpatterns = [
     path('total_income/', views.total_income, name='total_income'),
     path('total_expense/', views.total_expense, name='total_expense'),
 
-
     path('transactions/', views.transactions, name='transactions'),
+    path('transactions_income/', views.transactions_income, name='transactions_income'),
+    path('transactions_expense/', views.transactions_expense, name='transactions_expense'),
     path('delete_transaction/<int:id>/', views.delete_transaction, name='delete_transaction'),
-    path('update_transaction/<int:id>/', views.update_transaction, name='update_transaction')
+    path('update_transaction/<int:id>/', views.update_transaction, name='update_transaction'),
+
+    path('transactions_on_charts/', views.graphic_view, name='transactions_on_charts')
 
 ]

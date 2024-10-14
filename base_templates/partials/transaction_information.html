@@ -2,7 +2,7 @@
     <div class="info">
         <div class="items">
             <div class="arrow-items adjustment">
-                <p>Saldo total</p>
+                <a class="type_transaction" href="{% url "home:transactions" %}">Saldo total</a>
                 <i class="fa-solid fa-chevron-right"></i>
             </div>
             <div>
@@ -17,7 +17,7 @@
     <div class="info">
         <div class="items">
             <div class="arrow-items">
-                <p>Receitas</p>
+                <a href="{% url "home:transactions_income" %}" class="type_transaction">Receitas</a>
                 <i class="fa-solid fa-chevron-right"></i>
             </div>
             <div>
@@ -32,7 +32,7 @@
     <div class="info">
         <div class="items">
             <div class="arrow-items adjustment">
-                <p>Despesas</p>
+                <a href="{% url "home:transactions_expense" %}" class="type_transaction">Despesas</a>
                 <i class="fa-solid fa-chevron-right"></i>
             </div>
             <div>
@@ -43,4 +43,20 @@
             <i class="bi-arrow-down"></i>
         </div>
     </div>
+    {% if view == 'transactions' %}
+        <div class="info">
+            <div class="items">
+                <div class="arrow-items adjustment">
+                    <a class="type_transaction">Balanço Mensal</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <div>
+                    <h5 id="expense-total" class="value-balance">{{monthhly_balance}}</h5> 
+                </div>
+            </div>
+            <div>
+                <i class="bi-calendar3"></i>
+            </div>
+        </div> 
+    {% endif %}
 </div>

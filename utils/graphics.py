@@ -47,3 +47,12 @@ def graphic_pizza_category():
     plt.savefig(ROOT_FOLDER / 'base_static' / 'imgs' / 'graphics' / 'graphic_category.png')
     plt.close()
 
+def graphic_expense_category():
+    graphic = for_views.filter_type_category_graphic(
+        Category, 'expense', 'graphic_expense_category')
+    return graphic
+
+def graphic_income_category():
+    graphic = for_views.filter_type_category_graphic(
+        Category, 'income', 'graphic_income_category')
+    return graphic

@@ -1,6 +1,7 @@
+{% load static %}
 <header class="header">
     <nav class="nav-bar">
-        <a href="{% url "home:index" %}"><img class="logo-header" src="media/imgs/logo.png" alt="logo"></a>
+        <a href="{% url "home:index" %}"><img class="logo-header" src="{% static "imgs/logo.png" %}" alt="logo"></a>
         <a id="input-add" class="add-expense-or-budget" href="#">
             <i class="bi bi-plus-lg"></i>
             <div  id="container-options-id" class="container-options">
@@ -17,7 +18,7 @@
         <ul class="navigation-menu">
             <li><a href="{% url "home:index" %}"><i class="bi bi-house-door"></i></a></li>
             <li><a href="{% url "home:transactions" %}"><i class="bi bi-list-task"></i></a></li>
-            <li><a href="#"><i class="bi bi-diagram-3"></i></a></li>
+            <li><a href="{% url "home:transactions_on_charts" %}"><i class="bi bi-diagram-3"></i></a></li>
             <li><a href="#"><i class="bi bi-gear"></i></a></li>
         </ul>
     </nav>
